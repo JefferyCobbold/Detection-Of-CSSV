@@ -54,6 +54,33 @@ The ESP32-CAM communicates with the OLED display via the I2C protocol.
 
 
 
+### Model Training and TinyML Implementation
+### 1. Dataset
+The model was trained on an open-source dataset of cocoa leaf images categorized into 'Healthy' and 'CSSV Infected' classes.
+
+### 2. Training Performance
+The model training process utilized Transfer Learning (or a custom CNN architecture) and was rigorously monitored to ensure optimal performance on unseen validation data.
+
+Accuracy: The final validation accuracy reached 98% after 20 epochs, demonstrating high classification reliability.
+<img width="720" height="622" alt="Accuracy Curve" src="https://github.com/user-attachments/assets/385c3c91-6891-4751-8c7d-9e440c74fdbb" />
+
+
+<img width="720" height="622" alt="Loss Curve" src="https://github.com/user-attachments/assets/7a77d156-faaf-4906-a99a-6bab241ad255" />
+
+Optimization: The trained model was converted to a TensorFlow Lite format and then quantized to 8-bit integers to drastically reduce the model size (to under 300KB) and inference time, making it suitable for the ESP32's limited resources.
+
+
+### 3. Inference Cycle
+1.Capture: The ESP32-CAM captures an image of the cocoa leaf.
+
+2.Pre-processing: The image is resized and converted into a format suitable for the TinyML model (e.g., a $96 \times 96$ grayscale array).
+
+3.Inference: The quantized CNN model runs the prediction on the processed image data.
+
+4.Display: The result is immediately displayed on the OLED screen, showing the class (CSSV    Detected or Healthy) and the prediction confidence.
+
+
+
 
 
 
